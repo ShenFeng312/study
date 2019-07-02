@@ -8,6 +8,13 @@
         <version>1.5.3.RELEASE</version>
         <relativePath/> <!-- lookup parent from repository -->
     </parent>
+    <modules>
+        <module>
+            eurekatestserver
+        </module>
+        <module>eurekaclient</module>
+    </modules>
+    <packaging>pom</packaging>
     <groupId>com.sf</groupId>
     <artifactId>eurekatest</artifactId>
     <version>0.0.1-SNAPSHOT</version>
@@ -42,4 +49,16 @@
             </dependency>
         </dependencies>
             </dependencyManagement>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-maven-plugin</artifactId>
+                <configuration>
+                    <!--配置为执行-->
+                    <classifier>exec</classifier>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 </project>
