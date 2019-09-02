@@ -1,0 +1,97 @@
+@Conditional是Spring4新提供的注解，它的作用是按照一定的条件进行判断，满足条件给容器注册bean。
+
+
+
+@Conditional的定义：
+
+//此注解可以标注在类和方法上
+@Target({ElementType.TYPE, ElementType.METHOD})
+@Retention(RetentionPolicy.RUNTIME) 
+@Documented
+public @interface Conditional {
+    Class<? extends Condition>[] value();
+}
+
+########################################################################################################################
+看出 入参需要一个Class 的数组 必须继承自Condition类接口
+接口源码来自Githubspring 官方最新tag 5.2.0.RC1
+@FunctionalInterface
+public interface Condition {
+
+	/**
+	 * Determine if the condition matches.
+	 * @param context the condition context
+	 * @param metadata metadata of the {@link org.springframework.core.type.AnnotationMetadata class}
+	 * or {@link org.springframework.core.type.MethodMetadata method} being checked
+	 * @return {@code true} if the condition matches and the component can be registered,
+	 * or {@code false} to veto the annotated component's registration
+	 *
+	 * 确定条件是否匹配。
+	 * @param context 条件上下文
+	 * @param metadata 需要被检查的元数据{@link org.springframework.core.type.AnnotationMetadata 类}
+	 * 或{@link org.springframework.core.type.MethodMetadata 方法} 、
+	 * @return { @code true}如果条件匹配且组件可以注册，*或{@code false}否决注释组件的注册
+	 */
+	boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata);
+ }
+###########################################################################################################################
+
+
+手写一个接口测试 并且重写他的方法 
+public class ConditionTest implements Condition {
+	@Override
+	public boolean matches(ConditionContext context, AnnotatedTypeMetadata metadata) {
+		metadata.getAnnotations().forEach(it-> System.out.println(it));
+		return  false;
+	}
+}
+给测试的类加上注解
+package com.sf;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Conditional;
+import org.springframework.context.annotation.Lazy;
+
+public class TestConfig {
+	@Bean
+	@Lazy
+	@Conditional({ConditionTest.class})
+	public  ModelA myBean(){
+		System.out.println("myBean被加载了");
+		return  new ModelA();
+	}
+}
+
+
+测试类
+package com.sf;
+
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
+public class Test {
+	public static void main(String[] args) {
+
+		AnnotationConfigApplicationContext  applicationContext=new AnnotationConfigApplicationContext(TestConfig.class);
+		System.out.println(applicationContext.getBean(ModelA.class));
+	}
+}
+
+输出：
+@org.springframework.context.annotation.Bean(autowire=NO, autowireCandidate=true, destroyMethod=(inferred), initMethod=, name=[], value=[])
+@org.springframework.context.annotation.Lazy(value=true)
+@org.springframework.context.annotation.Conditional(value=[com.sf.ConditionTest])
+Exception in thread "main" org.springframework.beans.factory.NoSuchBeanDefinitionException: No qualifying bean of type 'com.sf.ModelA' available
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:349)
+	at org.springframework.beans.factory.support.DefaultListableBeanFactory.getBean(DefaultListableBeanFactory.java:340)
+	at org.springframework.context.support.AbstractApplicationContext.getBean(AbstractApplicationContext.java:1123)
+	at com.sf.Test.main(Test.java:9)
+结论：
+当Condition 的matches方法返回true 时被注释的bean 可以被加载
+断点打在接口方法内部得知是ConditionEvaluator 的shouldSkip 方法跳过注册 并且Condition的matches
+方法的第一个入参用于获取上下文配置 第二个参数用于获取bean 上的注解 如@Lazy @Bean之类
+
+
+
+
+
+
