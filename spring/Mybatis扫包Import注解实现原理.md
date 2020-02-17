@@ -1,4 +1,4 @@
-# 通过MyBatis分析ImportBeanDefinitionRegistrar与@Import注解以及bean定义的注册过程分析
+# 通过MyBatis分析ImportBeanDefinitionRegistrar与@Import注解以及相关bean定义的注册过程
 之前在的介绍中已经说明了大多数bean定义都由[BeanDefinitionRegistryPostProcessor](https://github.com/ShenFeng312/study/blob/master/spring/BeanDefinitionRegistryPostProcessor%E6%8E%A5%E5%8F%A3.md)注册。如果我们要自己干预注册可以自己添加一个BeanDefinitionRegistryPostProcessor的实现。
 
 除了这种方式spring还有一种更简单的方式来注册。``@Import``和``ImportBeanDefinitionRegistrar``
