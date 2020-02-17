@@ -23,6 +23,7 @@
 - 后台框架：Spring/SpringBoot/SpringCloud/.NETMVC(C#)
 - 前端框架：Vue/Jquery
 - 数据库相关：MySQL/Redis
+- 消息队列：RocketMQ
 - 版本管理、文档和自动化部署工具：Svn/Git/Jenkins/Docker
 - 云和开放平台：微信小程序/微信公众号
 ---
