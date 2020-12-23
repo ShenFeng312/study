@@ -21,7 +21,7 @@
 - 后台框架：Spring/SpringBoot/SpringCloud/.NETMVC(C#)/Node(阿里巴巴开源的egg)/Dubbo
 - 数据库相关：MySQL/Redis
 - 消息队列：RocketMQ、NSQ
-- 版本管理、文档和自动化部署工具：Svn/Git/Jenkins/Docker
+- 版本管理、文档和自动化部署工具：Svn/Git/Jenkins/Docker/Maven/Gradle
 - 云和开放平台：有赞云/微信小程序/微信公众号/
 ---
 # 开源项目经验
