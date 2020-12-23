@@ -8,32 +8,43 @@
 
  - 沈锋/男/1997
  - 专科/杭州科技职业技术学院 
- - 工作年限：2年(半年实习)
+ - 工作年限：3年
  - Github：http://github.com/ShenFeng312
  - 期望职位：Java程序员
  - 期望城市：杭州/上海
  - 期望入职时间：2020年3月1日
- - 优势分析：本人有良好的Java基础,对JVM、java内存模型、以及并发编程有一定的了解。有良好的自学习惯。自学能力强。对共工作有热情。
+ - 优势分析：本人有良好的Java基础,阅读过Spring源码、Dubbo源码(部分),有开源项目经验。对JVM、java内存线程模型。有良好的自学习惯。自学能力强。对共工作有热情。
 
 ---
 # 技能清单
 
 以下均为我熟练使用的技能
 
-- 后台框架：Spring/SpringBoot/SpringCloud/.NETMVC(C#)
-- 前端框架：Vue/Jquery
+- 后台框架：Spring/SpringBoot/SpringCloud/.NETMVC(C#)/Node(阿里巴巴开源的egg)/Dubbo
 - 数据库相关：MySQL/Redis
-- 消息队列：RocketMQ
+- 消息队列：RocketMQ、NSQ
 - 版本管理、文档和自动化部署工具：Svn/Git/Jenkins/Docker
-- 云和开放平台：微信小程序/微信公众号
+- 云和开放平台：有赞云/微信小程序/微信公众号/
 ---
-
+# 开源项目经验
+## Dubbo
+修改记录 modify NacosRegistry#getServiceName #6970
+社区反馈Dubbo在注册到nacos时,内部接口会注册失败。重现后发现接口中带有$符号，但是Nacos不支持。修改源码的getServiceName方法。实现注册。并修改了注册NacosRegistry中获取ServiceName方法不统一的bug。
+## rokcketmq-spring
+rokcketmq-spring 中 RocketMQMessageListener 原本只能用于类上。且必须实现固定接口才能作为一个consumer。修改了starter代码。让它能在方法上被添加。且不需要实现接口。实现原理为在BeanPostProcesser的后置处理中中扫描类的方法上是否有携带注解。如果有注解则注册一个consumer 并以这个bean的携带注解的方法作为消费消息的方法(未提交PR 只是自己试验)
+## SpringCloud(一个开源的微服务脚手架，并非官方)
+修改记录 fix GatewayAdminApplication start warn #144
+去除了自动配置GatewayClassPathWarningAutoConfiguration 
+修复authentication-server 启动过程中没有获取到授权信息仍然能正常启动问题
+## 
 # 工作经历
 
 ## 杭州卓健科技（2017年12月 ~ 2019年12月）
 
 ### 药事平台（网上购药）（2018年7月 ~ 2019年12月）Java项目
-接手药事平台之后，我出色完成了和后台服务的开发、数据库的设计、旧代码重构。和医院的处方平台对接。并且通过Redis实现分布式锁来避免了支付回调多次导致的MQ重复消费问题。
+负责订单中心订单审核功能开发。处方中心开发。和公司支付中心。药品中心、用户中心对接。
+接手药事平台之后，我出色完成了和后台服务的开发、旧代码重构。和医院的处方平台对接。并且通过Redis实现分布式锁来避免了支付回调多次导致的MQ重复消费问题。
+利用TCC解决分布式事务。状态机处理订单流转。接收库存扣减失败接口进行超卖退款。
 利用空闲时间基于ThreadLocal、Reids、AOP完成了一个缓存工具，减少了大量管理缓存的代码，减少了对其他服务、数据库、redis的调用。更大大提高了服务的QPS。帮助部门搭建Jenkins自动发布，完成相关Shell脚本大大增加了工作效率减少了发布浪费的时间。
 ### 智能随访（2017年12月 ~ 2018年7月）Java&&C#
 主要完成随访统计的前后端开发。问卷随访前后台开发。与公司用户中心对接。当时还是实习生的我并不是很忙，恰逢公司由C#向Java转型。快速学习了Java并且加入到了Java开发中。
