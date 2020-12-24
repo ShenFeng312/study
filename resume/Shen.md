@@ -91,11 +91,5 @@ rokcketmq-spring 中 RocketMQMessageListener 原本只能用于类上。且必�
 负责把老项目的.NET代码重构成Java。修改统计模板样式。开发各种统计报表。
 	
 - 由于数据量逐渐增大。原本对于业务表全表扫描的统计难以达到要求RT时间。后采用把业务表和统计表分开的方式。每生成一次业务记录就更改一次统计表。以实现统计报表的快速查询和导出。
----
-
-## 技术文章
-
-- [通过MyBatis分析ImportBeanDefinitionRegistrar与@Import注解以及相关bean定义的注册过程](https://github.com/ShenFeng312/study/blob/master/spring/Mybatis%E6%89%AB%E5%8C%85Import%E6%B3%A8%E8%A7%A3%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86.md)
-- [BeanDefinitionRegistryPostProcessor的作用以及原理](https://github.com/ShenFeng312/study/blob/master/spring/BeanDefinitionRegistryPostProcessor%E6%8E%A5%E5%8F%A3.md) 
 
 
